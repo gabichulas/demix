@@ -2,5 +2,5 @@
 
 Music demixer project
 
-![Logo del proyecto](img/logo.jpg)
+![Logo del proyecto](img/logo.png)
 
