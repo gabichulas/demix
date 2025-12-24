@@ -1,0 +1,39 @@
+services:
+  # FastAPI application
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./src:/app/src
+      - ./models/checkpoints:/app/models/checkpoints
+      - ./data/temp:/app/data/temp
+    environment:
+      - AWS_ENDPOINT_URL=http://localstack:4566
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+      - AWS_DEFAULT_REGION=us-east-1
+    depends_on:
+      - localstack
+    networks:
+      - demix-network
+
+  # LocalStack for AWS simulation
+  localstack:
+    image: localstack/localstack:latest
+    ports:
+      - "4566:4566"  # LocalStack gateway
+    environment:
+      - SERVICES=s3,sqs
+      - DEBUG=1
+      - DATA_DIR=/tmp/localstack/data
+    volumes:
+      - "./localstack_data:/var/lib/localstack"
+    networks:
+      - demix-network
+
+networks:
+  demix-network:
+    driver: bridge

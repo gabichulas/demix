@@ -1,0 +1,10 @@
+# Docker
+localstack_data/
+*.tar
+
+# Ignore checkpoints and data in Docker builds
+checkpoints/
+data/raw/
+data/processed/
+models/
+results/
