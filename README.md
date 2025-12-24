@@ -46,7 +46,6 @@ demix/
 │
 ├── notebooks/            # experimentation
 ├── docker/               # containerization
-├── checkpoints/          # saved model weights
 └── results/              # metrics and plots
 ```
 
