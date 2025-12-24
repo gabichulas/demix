@@ -58,6 +58,9 @@ demix/
 - librosa for audio
 - FastAPI for serving
 - Docker for deployment
+- LocalStack for AWS services (S3 & SQS) simulation and practice
+- Terraform for LocalStack management
+
 
 ---
 
