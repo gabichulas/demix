@@ -2,3 +2,5 @@
 __pycache__
 musdb18
 localstack_data
+data/processed/test
+data/processed/train
