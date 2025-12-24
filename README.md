@@ -2,7 +2,7 @@
 
 Comparing U-Net and Vision Transformers for audio source separation.
 
-![Logo del proyecto](img/logo.png)
+![Project logo](img/logo.png)
 
 ---
 
@@ -46,7 +46,6 @@ demix/
 │
 ├── notebooks/            # experimentation
 ├── docker/               # containerization
-├── checkpoints/          # saved model weights
 └── results/              # metrics and plots
 ```
 
@@ -61,6 +60,20 @@ demix/
 - LocalStack for AWS services (S3 & SQS) simulation and practice
 - Terraform for LocalStack management
 
+---
+
+## Building
+
+1. **Download MUSDB18 dataset**
+   - Get it from https://sigsep.github.io/datasets/musdb.html
+   - Extract to `data/raw/musdb18/`
+
+2. **Build and run**
+   ```bash
+   docker compose up --build
+   ```
+   - FastAPI: http://localhost:8000
+   - LocalStack: http://localhost:4566
 
 ---
 
