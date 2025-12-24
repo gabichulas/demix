@@ -61,6 +61,20 @@ demix/
 - LocalStack for AWS services (S3 & SQS) simulation and practice
 - Terraform for LocalStack management
 
+---
+
+## Building
+
+1. **Download MUSDB18 dataset**
+   - Get it from https://sigsep.github.io/datasets/musdb.html
+   - Extract to `data/raw/musdb18/`
+
+2. **Build and run**
+   ```bash
+   docker compose up --build
+   ```
+   - FastAPI: http://localhost:8000
+   - LocalStack: http://localhost:4566
 
 ---
 
