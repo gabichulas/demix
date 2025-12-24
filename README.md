@@ -2,7 +2,7 @@
 
 Comparing U-Net and Vision Transformers for audio source separation.
 
-![Logo del proyecto](img/logo.png)
+![Project logo](img/logo.png)
 
 ---
 
