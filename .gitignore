@@ -7,3 +7,4 @@ data/processed/train
 .terraform
 .terraform.lock.hcl
 terraform.tfstate.backup
+terraform.tfstate
