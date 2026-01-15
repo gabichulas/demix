@@ -10,4 +10,5 @@ stempeg==0.2.6
 h5py==3.8.0
 matplotlib==3.7.0
 seaborn==0.12.0
+gradio
 
