@@ -3,13 +3,13 @@ services:
   api:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.cpu
     ports:
       - "8000:8000"
-    volumes:
-      - ./src:/app/src
-      - ./models/artifacts:/app/models/artifacts
-      - ./data/temp:/app/data/temp
+    # volumes:
+    #   - ./src:/app/src
+    #   - ./models/artifacts:/app/models/artifacts
+    #   - ./data/temp:/app/data/temp
     environment:
       - AWS_ENDPOINT_URL=http://localstack:4566
       - AWS_ACCESS_KEY_ID=test
@@ -19,24 +19,17 @@ services:
       - localstack
     networks:
       - demix-network
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
 
   # SQS Worker
   worker:
     build:
       context: .
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.cpu
     command: python3 -m src.models.worker
-    volumes:
-      - ./src:/app/src
-      - ./models/artifacts:/app/models/artifacts
-      - ./data/temp:/app/data/temp
+    # volumes:
+    #   - ./src:/app/src
+    #   - ./models/artifacts:/app/models/artifacts
+    #   - ./data/temp:/app/data/temp
     environment:
       - AWS_ENDPOINT_URL=http://localstack:4566
       - AWS_ACCESS_KEY_ID=test
@@ -46,13 +39,6 @@ services:
       - localstack
     networks:
       - demix-network
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: 1
-              capabilities: [gpu]
 
   # LocalStack for AWS simulation
   localstack:
@@ -62,9 +48,12 @@ services:
     environment:
       - SERVICES=s3,sqs
       - DEBUG=1
-      - DATA_DIR=/tmp/localstack/data
-    volumes:
-      - "./localstack_data:/var/lib/localstack"
+      - LOCALSTACK_HOST=localstack
+      - LS_LOG=info
+    tmpfs:
+      - /var/lib/localstack
+    # volumes:
+    #   - "./localstack_data:/var/lib/localstack"
     networks:
       - demix-network
 
