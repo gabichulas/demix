@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import gradio as gr
+from gradio import themes
 import boto3
 import uuid
 import json
@@ -27,7 +28,7 @@ def handle_separation(audio_filepath, model_choice):
     return None, None, None, None
 
 # Gradio
-with gr.Blocks(title="Demix - Separación de Audio", theme=gr.themes.Soft()) as gradio_app:
+with gr.Blocks(title="Demix - Separación de Audio", theme=themes.Soft()) as gradio_app:
     gr.Markdown(
         """
         # 🎵 Demix - Separación de Fuentes de Audio
