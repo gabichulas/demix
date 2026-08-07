@@ -37,12 +37,12 @@ demix/
 ├── data/
 │   ├── raw/              # MUSDB18 dataset
 │   ├── processed/        # preprocessed spectrograms
-│   └── temp/             # temp files for API
+│   └── temp/             # temp files for API/Gradio
 │
 ├── src/
 │   ├── models/           # U-Net and ViT implementations
 │   ├── data/             # data loading and preprocessing
-│   └── api/              # FastAPI server for inference
+│   └── api/              # FastAPI & Gradio interface for model testing
 │
 ├── notebooks/            # experimentation
 ├── docker/               # containerization
@@ -54,28 +54,11 @@ demix/
 ## Tech
 
 - TensorFlow 2.10
-- librosa for audio
-- FastAPI for serving
-- Docker for deployment
-- LocalStack for AWS services (S3 & SQS) simulation and practice
-- Terraform for LocalStack management
+- librosa for audio processing
+- Gradio & FastAPI for interactive model testing
+- Docker for containerized setup
 
 ---
 
-## Building
-
-1. **Download MUSDB18 dataset**
-   - Get it from https://sigsep.github.io/datasets/musdb.html
-   - Extract to `data/raw/musdb18/`
-
-2. **Build and run**
-   ```bash
-   docker compose up --build
-   ```
-   - FastAPI: http://localhost:8000
-   - LocalStack: http://localhost:4566
-
----
-
-**Building with curiosity and a GTX 1050 Ti** 
+**Building with curiosity and a GTX 1050 Ti**
 

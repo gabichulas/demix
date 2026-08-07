@@ -1,29 +1,27 @@
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 import gradio as gr
-import boto3
-import uuid
 
 app = FastAPI(title="Demix API", description="Audio Source Separation API")
 
-s3_client = boto3.client('s3', endpoint_url="http://localstack:4566")
-
 def handle_separation(audio_filepath, model_choice):
-    job_id = str(uuid.uuid4())
-    key = f"inputs/{job_id}/original.mp3"
-    s3_client.upload_file(audio_filepath, 'demix-raw-audio', key)
-    print(f"File '{audio_filepath}' uploaded and added to S3 bucket succesfully.")
+    if not audio_filepath:
+        return None, None, None, None
+    print(f"[Mock Interface] Recibido archivo '{audio_filepath}' con modelo '{model_choice}'")
+    # Mock return: las 4 fuentes separadas (drums, bass, other, vocals)
+    # Una vez que los modelos estén entrenados, aquí se invocará el pipeline de inferencia real
     return None, None, None, None
 
-# Gradio
+# Gradio Interface
 with gr.Blocks(title="Demix - Separación de Audio", theme=gr.themes.Soft()) as gradio_app:
     gr.Markdown(
         """
         # 🎵 Demix - Separación de Fuentes de Audio
         
-        Compara **U-Net** vs **Vision Transformers** para separar instrumentos.
+        Compara **U-Net** vs **Vision Transformers (ViT)** para separar instrumentos en canciones.
         
-        ### En desarrollo - Modelos en entrenamiento
+        ### 🧪 Interfaz de Pruebas y Mockup
+        Sube una pista de audio y selecciona la arquitectura del modelo para ejecutar la separación.
         """
     )
     
@@ -56,13 +54,11 @@ with gr.Blocks(title="Demix - Separación de Audio", theme=gr.themes.Soft()) as 
             vocals_output = gr.Audio(label="🎤 Voces", interactive=False)
     
     separate_btn.click(
-    fn=handle_separation,
-    inputs=[audio_input, model_choice],
-    outputs=[drums_output, bass_output, other_output, vocals_output]
-)
+        fn=handle_separation,
+        inputs=[audio_input, model_choice],
+        outputs=[drums_output, bass_output, other_output, vocals_output]
+    )
 
-
-         
 app = gr.mount_gradio_app(app, gradio_app, path="/gradio")
 
 @app.get("/")
@@ -72,4 +68,8 @@ async def root():
         "gradio_ui": "/gradio",
         "docs": "/docs"
     })
+
+if __name__ == "__main__":
+    gradio_app.launch(server_name="0.0.0.0", server_port=7860, share=False)
+
 
